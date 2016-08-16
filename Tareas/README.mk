@@ -1,0 +1,1 @@
+En los notebooks en esta página no se ven a veces bien las ecuaciones (depende de tu sistema operativo y tu explorador). Por eso es recomendable que descargen los notebooks y los corran en su cuenta de juliabox, o en su computadora si ya tienen instalado Julia, Iphyton e IJulia. 
