@@ -1,0 +1,5 @@
+Ya fuimos capaces de hacer una función para evaluar numéricamente cualquier integral que querramos en un intervalo determinado; pero aún no tenemos nada para evaluar diferenciales, las cuales pueden ser útiles en muchos casos, por ejemplo, para el método de Newton. Un paquete que puede resolver esta parte es el que se conoce como "calculus.jl". 
+
+Aquí la página con las instrucciones para usarlo y descargarlo: https://github.com/johnmyleswhite/Calculus.jl
+
+Si lo usas en alguna tarea, asegúrate de advertirle a la ayudante que estás usando esta paquetería, o cualquier otra que no esté instalada previamente en juliabox. 
