@@ -1,6 +1,7 @@
 # Fisica-computacional-2017-1
 
-**Agregué un par de notebooks en la sección de "notas"**
+**Agregué un notebook en la sección de "notas"**
 
-1. Algoritmo Babilónico 
-2. Mapeo Logístico
+"Fit"
+
+Explico como hacer un ajuste de una curva a datos determinados. 
