@@ -1,0 +1,177 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Ecuaciones diferenciales ordinarias de orde n y de m variables"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "En la clase desarrollamos el método de Euler para una ecuación diferencial del tipo $\\dot{x} = f(x, t)$, donde $x$ es una función del tiempo y $f$ es una función de $x$ y de $t$. \n",
+    "\n",
+    "Ahora toca generalizar este método a ecuaciones del tipo $\\ddot{x} = f_1 (x,\\dot{x},t)$ y $\\dot{x} = f_2 (x,t)$, o incluso más \"puntos\" sobre la $x$. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "[1] ¿Cómo se puede tratar la ecuación de caída libre, $\\ddot{y} = -g$? Compara la solución con el resultado analítico."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Varias variables"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Recordemos que *cualquier* EDO se puede escribir en la forma\n",
+    "$$\\dot{\\mathbf{x}} = \\mathbf{f}(\\mathbf{x}, t),$$\n",
+    "\n",
+    "es decir\n",
+    "\n",
+    "$$\\dot{\\mathbf{x}}(t) = \\mathbf{f}(\\mathbf{x}(t), t),$$\n",
+    "\n",
+    "donde ahora $\\mathbf{x} = (x_1, \\ldots, x_n) \\in \\mathbb{R}^n$ es un vector y $\\mathbf{f}: \\mathbb{R}^n \\to \\mathbb{R}^n$ es una función vectorial, que nos da un **campo vectorial** que indica en cuál dirección seguir desde cada punto del espacio."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "[2] Escribe una función para hacer un paso del método de Euler en este caso. El código deberá ser *genérico*, es decir, funcionar para cualquier $\\mathbf{x}$ y $\\mathbf{f}$ de cualquier dimensión.\n",
+    "\n",
+    "[3] Escribe el método de Euler completo. \n",
+    "\n",
+    "[4] Úsalo para resolver la caída libre y una caída con fricción lineal en la velocidad. Compara con el resultado exacto. Dibuja las resultados con distintos tamaños de fricción."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "[5] \n",
+    "\n",
+    "(i) Resuelve numéricamente el problema del tiro parabólico con Euler para un proyectil que empieza en una altura $h>0$ con rapidez $1$ y ángulo inicial $\\alpha$, *hasta que* caiga al suelo.\n",
+    "\n",
+    "(ii) Encuentra la distancia horizontal donde cae al suelo (el rango). Dibuja el resultado tal que puedas manipular interactivamente las condiciones iniciales. Encuentra numéricamente el ángulo que maximiza el rango. ¿Es correcto?\n",
+    "\n",
+    "(iii) Agrega fricción del aire al problema y agrégalo como otro parámetro que puedas manipular."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Métodos de Tylor de orden n\n",
+    "\n",
+    "Al desarrollar el método de Euler, lo que hicimos fue hacer un desarrollo de Tylor y cortar hasta el primer orden. ¿Qué pasa si uno sigue el desarrollo?\n",
+    "\n",
+    "Lo que se obtiene es algo como lo siguiente: \n",
+    "\n",
+    "$y(t+h) = y(t) + h f(t,y(t)) + \\frac{h^2}{2} f'(t,y(t)) + ... + \\frac{h^n}{n!} f^{(n-1)}(t,y(t)) + O(h^{n+1})$\n",
+    "\n",
+    "Utilizando este desarrollo, la ecuación diferencial $f(y(t),t) = \\frac{dy}{dt}$ y derivadas implícitas en f, podemos reducir el error del método de Euler. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "[6] Resuelve la ecuación $dot(x) = -\\alpha x$ analíticamente, con el método de Euler (Método de Tylor de orden 1), y con un método de Tylor de orden 4. Compara los resultados gráficamente. \n",
+    "\n",
+    "[7] Haz lo mismo para el oscilador armónico (solución analítica y numérica de orden 1 y 4): $m \\cdot \\ddot(x) = -K \\cdot x\n",
+    "\n",
+    "[8] Calcula el *error global* para ambos métodos en el caso del oscilador armónico, que se puede medir como la máxima diferencia entre el resultado calculado y el analítico, para distintos tamaños de paso $h$. ¿Cómo cambia con $h$?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Métodos de Runge-Kutta "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Para derivar el famoso método de Runge-Kutta, utilizamos los polinomios de Tylor en 2 variables. Es decir: \n",
+    "\n",
+    "$ P_n(y,t) = f(y_0,t_0) + [(t-t_0)\\frac{\\partial f}{\\partial t}(y_0,t_0) + (y-y_0) \\frac{\\partial f}{\\partial t}(y_0,t_0) +[\\frac{(t-t_0)^2}{2}\\frac{\\partial^2 f}{\\partial t^2}(y_0,t_0) + (t-t_0)(y-y_0)\\frac{\\partial^2 f}{\\partial t \\partial y}(y_0,t_0) + \\frac{(y-y_0)^2}{2}\\frac{\\partial^2 f}{\\partial y^2}(y_0,t_0)] $\n",
+    "$+ ...+ [\\frac{1}{n!} \\sum_{j=1}^{n+1}{\\binom {n+1}{j} (t-t_0)^{n+1-j}(y-y_0)^{j}\\frac{\\partial^{n+1} f}{\\partial t^{n+1-j} \\partial y^j}(y_0,t_0)}]$+...\n",
+    "\n",
+    "Que ya desde aquí se ve espantosa la talacha. \n",
+    "\n",
+    "El siguiente paso es encontrar los valores $a_1,\\alpha_1,$ y $\\beta_1$ tales que podemos aproximar $f(y,t)+ \\frac{h}{2}f'(y,t) $ de la forma $a_1 f(y+\\beta_1,t+\\alpha_1)$. De esta forma, no requeriremos explícitamente las derivadas de f. Luego, uno puede hacer lo mismo para ordenes superiores de la derivada de $f$. \n",
+    "\n",
+    "Recordemos que:\n",
+    "\n",
+    "$f'(y,t) = \\frac{d f}{dt}(y,t) = \\frac{\\partial f}{\\partial t}(y,t) + \\frac{\\partial f}{\\partial y}(y,t)\\cdot \\frac{d y}{dt}$\n",
+    "\n",
+    "Uno entonces hace el desarrollo de Tylor en 2 variables de $a_1 f(y+\\beta_1,t+\\alpha_1)$ a primer orden y se compara con $f(y,t)+ \\frac{h}{2}f'(y,t) $ \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Comparando los coeficientes, se pueden obtener los valores de $a_1,\\alpha_1,$ y $\\beta_1$. \n",
+    "\n",
+    "Se puede hacer algo similar para ordenes superiores. Si intentan deducir el método para orden superior a 2, verán que es una talacha horrible. ***Este curso no trata sobre hacer talacha, sino de evitarla!!!***. \n",
+    "\n",
+    "Por suerte para nosotros, alguien más ya lo hizo hasta varios órdenes. \n",
+    "\n",
+    "[9] Busca en internet (wikipedia, por ejemplo), el algoritmo Runge-Kutta para orden 4 e impleméntalos en un código (como siempre, una versión general para cualquier función $f(y,t)$. \n",
+    "\n",
+    "[10] Generaliza el método a n dimensiones.  \n",
+    "\n",
+    "[11] Usa este algoritmo para resolver el siguiente sistema de ecuaciones diferenciales:\n",
+    "\n",
+    "$ \\dot{I_1} = -4I_1 + 3I_2 +6, I_1(0)=0,$\n",
+    "\n",
+    "$ \\dot{I_2} = -2.4I_1 + 1.6I_2 +3.6, I_2(0)=0.$ "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Continuará con interpolación, extrapolación y métodos multipaso ... "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Julia 0.3.12",
+   "language": "julia",
+   "name": "julia-0.3"
+  },
+  "language_info": {
+   "file_extension": ".jl",
+   "mimetype": "application/julia",
+   "name": "julia",
+   "version": "0.3.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
