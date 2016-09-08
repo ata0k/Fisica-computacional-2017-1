@@ -1,0 +1,81 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# ¿Qué es?\n",
+    "\n",
+    "La interpolación trata sobre encontrar una funcion que pase a través de $n$ puntos obtenidos experimental o numericamente. \n",
+    "\n",
+    "¿Cuál es la función más sencilla que se te ocurre?\n",
+    "\n",
+    "Probablemente es $P_0(x) = 0$. Ok, una ligeramente más complicada es $P_1(x) = constante$. Para hacer la interpolación más sencilla, donde se asegure que la funcion $P_1(x)$ pasa por un punto dado $(x_1,y_1)$, lo único que necesitamos es hacer $P_1(x) = y_1$ \n",
+    "\n",
+    "La siguiente función en dificultad es una función lineal $P_2(x) = mx+b$. \n",
+    "\n",
+    "[1] ¿Qué valor tiene $m$ y $b$, tales que la funcion $P_2(x)$ pasa por los puntos $(x_1,y_1)$ y $(x_2,y_2)$?\n",
+    "\n",
+    "Si seguimos escalando en dificultad, cada vez las funciones que propongamos tendrán más y más parámetros con los cuales podamos identificar nuestros puntos. En general, la función más sencilla que pasa por $n$ puntos, es un polinomio de grado $n-1$. \n",
+    "\n",
+    "[2] Si $P_n(x) = a_{n-1} x^{n-1} + a_{n-2} x^{n-2} +...+a_1 x + a_0$  ¿Cómo calcularías los coeficientes $(a_{n-1}, a_{n-2},...,a_1 ,a_0)$, para que $P_n(x)$ pase por los puntos $(x_1,y_1),(x_2,y_2),...,(x_n,y_n)$?\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "La belleza de esto, es que al tener un polinomio que aproxima a una función dada, la integración resulta casi trivial. Una técnica de integración numérica consiste en obtener el polinomio de grado $n-1$ que pasa por $n$ puntos dados, $(x_1,f(x_1)),(x_2,f(x_2))...(x_n,f(x_n))$. El caso más sencillo se conoce como la regla de Simpson."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "[3] Considerando un el polinomio $P_3(x)$ que pasa por los puntos $(a,f(a)), (m,f(m))$ y $(b,f(b))$, con $m = \\frac{a+b}{2}$, demuestra que se puede aproximar la integral de $f(x)$ en el intervalo $[a,b]$ como: \n",
+    "\n",
+    "$\\int_{a}^{b} f(x) \\, dx =\\tfrac{b-a}{6}\\left[f(a) + 4f\\left(\\tfrac{a+b}{2}\\right)+f(b)\\right]$\n",
+    "\n",
+    "[4] Implementa esta integral como una funcion en Julia. \n",
+    "\n",
+    "[5] Implementa también la integral numérica usando el polinomio $P_6(x)$\n",
+    "\n",
+    "¿Qué otras funciones se te ocurre que pueden ser usadas para hacer interpolación? \n",
+    "¿Cómo podrías obtener de forma numérica los coeficientes por los que pasa una función dada que gustes? "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "La extrapolación trata de obtener la mejor interpolación posible, de tal forma que la función que se elija pase lo más cercano a todos los puntos dados (por ejemplo, en caso de que se use un $P_n$ y se tengan $m>n+1$ puntos). \n",
+    "\n",
+    "Para hacer esto hay muchas técnicas. La más famosa es \"mínimos cuadrados\". En este curso no se explorará muchos sobre extrapolación, en cambio ya enseñamos a usar un excelente paquete para esta clase de cálculos: LsqFit. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Julia 0.4.6",
+   "language": "julia",
+   "name": "julia-0.4"
+  },
+  "language_info": {
+   "file_extension": ".jl",
+   "mimetype": "application/julia",
+   "name": "julia",
+   "version": "0.4.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
